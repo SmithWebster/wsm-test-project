@@ -13,7 +13,10 @@ class ItemService implements ItemServiceInterface {
      * @return \Cart\Entity\Order\Item[]
      */
     public function getAllOrderItems($orderId) {
-        return $this->_orders[$orderId] ?? null;
+        $res = array_filter($this->_orders, function($order) use($orderId) {
+            return $order->id == $orderId;
+        });
+        return !empty($res) ? current($res) : null;
     }
 
     public function __construct(string $jsonFilePath) {

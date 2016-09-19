@@ -81,6 +81,10 @@ class OrderService implements OrderServiceInterface {
 
         if (!is_null($key)) {
             $json = &$json[$key];
+
+            if (is_null($json)) {
+                throw new \Exception($key . ' key is not exists!');
+            }
         }
 
         $this->_orders = $this->_buildOrdersList($json);
